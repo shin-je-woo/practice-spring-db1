@@ -10,9 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 import study.jdbc.domain.Member;
 import study.jdbc.repository.MemberRepository;
-import study.jdbc.repository.MemberRepositoryV4_1;
+import study.jdbc.repository.MemberRepositoryV4_2;
 
 import javax.sql.DataSource;
 
@@ -49,8 +50,11 @@ class MemberServiceV4Test {
         }
 
         @Bean
+//        MemberRepository memberRepository() {
+//            return new MemberRepositoryV4_1(dataSource);
+//        }
         MemberRepository memberRepository() {
-            return new MemberRepositoryV4_1(dataSource);
+            return new MemberRepositoryV4_2(dataSource, new SQLErrorCodeSQLExceptionTranslator(dataSource));
         }
 
         @Bean
